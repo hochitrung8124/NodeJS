@@ -6,7 +6,7 @@ import morgan from 'morgan'
 import { engine } from 'express-handlebars';
 app.use(express.static('src/public'));
 //HTTP logger
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 //template engine
 // chạy client
 // main has header and fooder
@@ -22,6 +22,15 @@ app.set('views', 'src/resources/view');
 // home has body
 app.get('/', (req, res) => {
     res.render('home');
+})
+
+app.get('/search', (req, res) => {
+  console.log(req.query.q)
+  res.render('search');
+})
+app.get('/new', (req, res) => {
+  console.log(req.query.q)
+  res.render('new');
 })
 
 app.listen(port, () => {
