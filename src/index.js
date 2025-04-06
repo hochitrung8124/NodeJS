@@ -1,15 +1,20 @@
 import path from 'path';
 import express from 'express';
+import  route  from './routes/index.js';
 const app = express()
 const port = 3000
 import morgan from 'morgan'
 import { engine } from 'express-handlebars';
 app.use(express.static('src/public'));
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(express.json());
 //HTTP logger
-// app.use(morgan('combined'))
+app.use(morgan('combined'))
 //template engine
 // chạy client
-// main has header and fooder
+// main has header and fooder 
 app.engine(
     ".hbs",
     engine({
@@ -20,19 +25,8 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', 'src/resources/view');
 // home has body
-app.get('/', (req, res) => {
-    res.render('home');
-})
-
-app.get('/search', (req, res) => {
-  console.log(req.query.q)
-  res.render('search');
-})
-app.get('/new', (req, res) => {
-  console.log(req.query.q)
-  res.render('new');
-})
-
+route(app);
+route
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
